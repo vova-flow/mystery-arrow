@@ -57,7 +57,7 @@
       margin: 0 auto;
     }
 
-    /* 3D Arrow Container with playful cartoon floating/wiggling animation */
+    /* 3D Compass Container with playful floating/wiggling animation */
     .compass-wrapper {
       position: relative;
       width: 295px;
@@ -80,7 +80,7 @@
       }
     }
 
-    /* 3D Arrow Container */
+    /* Chunky Cartoon Arrow Container with Deep Shadow */
     .arrow-container {
       position: absolute;
       inset: 0;
@@ -89,12 +89,12 @@
       justify-content: center;
       transition: transform 0.1s ease-out;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
+      filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.75));
     }
 
     .arrow-svg {
-      width: 240px;
-      height: 240px;
+      width: 230px;
+      height: 230px;
       transform: translateZ(35px); /* Pops out in 3D when phone tilts */
     }
 
@@ -182,44 +182,56 @@
   </header>
 
   <div class="compass-wrapper" id="compassWrapper">
-    <!-- Clean 3D Golden Arrow pointing UP -->
+    <!-- Solid, Bulky Cartoon Arrow pointing UP -->
     <div class="arrow-container" id="arrowContainer">
-      <svg class="arrow-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="arrow-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- 3D Extrusion Side/Depth Gradient (Darker Antique Gold) -->
-          <linearGradient id="goldSide" x1="70" y1="20" x2="110" y2="120" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#8c6d23"/>
-            <stop offset="100%" stop-color="#543e11"/>
-          </linearGradient>
-          <!-- Main Top Face Gradient (Bright Magical Gold) -->
-          <linearGradient id="goldTop" x1="70" y1="15" x2="70" y2="125" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#fff5c0"/>
-            <stop offset="40%" stop-color="#e5b84b"/>
-            <stop offset="100%" stop-color="#a67c1e"/>
+          <linearGradient id="goldGradient" x1="60" y1="10" x2="60" y2="110" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFF5C0"/>
+            <stop offset="45%" stop-color="#E5B84B"/>
+            <stop offset="100%" stop-color="#A67C1E"/>
           </linearGradient>
         </defs>
 
-        <!-- 3D Extruded Sides (Shifted slightly down-right for depth) -->
-        <g fill="url(#goldSide)">
-          <!-- Shaft depth -->
-          <rect x="52" y="52" width="40" height="64" rx="8" />
-          <!-- Arrowhead depth -->
-          <path d="M 70 18 L 122 72 L 88 72 Z" />
-        </g>
+        <!-- Chunky, Bulky Cartoon Arrow Body with Dark Outline -->
+        <path
+          d="M 60 10
+             L 98 50
+             Q 102 55 94 55
+             L 74 55
+             L 74 104
+             Q 74 110 68 110
+             L 52 110
+             Q 46 110 46 104
+             L 46 55
+             L 26 55
+             Q 18 55 22 50
+             Z"
+          fill="url(#goldGradient)"
+          stroke="#382607"
+          stroke-width="5"
+          stroke-linejoin="round"
+        />
 
-        <!-- Main Smooth Top Face -->
-        <g fill="url(#goldTop)">
-          <!-- Shaft Top -->
-          <rect x="48" y="46" width="40" height="64" rx="8" />
-          <!-- Arrowhead Top -->
-          <path d="M 70 12 L 120 66 L 82 66 Z" />
-          <!-- Center bridge -->
-          <rect x="48" y="46" width="40" height="26" />
-        </g>
+        <!-- Glossy Highlight Streak -->
+        <path
+          d="M 55 22 L 35 46"
+          stroke="#FFFFFF"
+          stroke-width="4"
+          stroke-linecap="round"
+          opacity="0.75"
+        />
+        <line
+          x1="53" y1="62" x2="53" y2="98"
+          stroke="#FFFFFF"
+          stroke-width="4"
+          stroke-linecap="round"
+          opacity="0.6"
+        />
 
-        <!-- Glossy Highlights for 3D Shiny Effect -->
-        <path d="M 54 54 L 54 96" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
-        <path d="M 70 26 L 102 58" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        <!-- Center Magical Gem / Rivet -->
+        <circle cx="60" cy="58" r="8" fill="#1A1528" stroke="#E5B84B" stroke-width="3"/>
+        <circle cx="58" cy="56" r="2.5" fill="#FFF5C0"/>
       </svg>
     </div>
   </div>
@@ -392,7 +404,7 @@
       }
 
       startBtn.classList.add('hidden');
-      hintText.textContent = 'Tilt your phone to see the 3D golden arrow in action';
+      hintText.textContent = 'Tilt your phone to test the 3D perspective response';
       startTracking();
     });
   </script>
