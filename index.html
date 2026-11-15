@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Mystery Destination</title>
+  <title>Mischief Managed — Birthday Quest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      --card-bg: rgba(30, 41, 59, 0.85);
-      --border-color: rgba(148, 163, 184, 0.25);
-      --accent-blue: #38bdf8;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --bg-dark: #0f0c18;
+      --bg-card: #1a1528;
+      --gold: #e5b84b;
+      --gold-light: #fff0b3;
+      --gold-dim: #8c6d23;
+      --parchment: #f4e8d1;
+      --accent-glow: rgba(229, 184, 75, 0.35);
     }
 
     * {
@@ -24,9 +25,9 @@
     }
 
     body {
-      background: var(--bg-gradient);
-      color: var(--text-main);
-      font-family: 'Fredoka', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #1f1933 0%, var(--bg-dark) 75%);
+      color: var(--parchment);
+      font-family: 'Crimson Text', Georgia, serif;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
@@ -40,21 +41,23 @@
     }
 
     header h1 {
+      font-family: 'Cinzel', serif;
       font-size: 1.55rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      color: var(--text-main);
-      margin-bottom: 4px;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-shadow: 0 0 18px var(--accent-glow);
+      margin-bottom: 6px;
     }
 
     header p {
-      font-size: 1rem;
-      color: var(--text-muted);
-      max-width: 310px;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #d3c5aa;
+      max-width: 320px;
       margin: 0 auto;
     }
 
-    /* 3D Arrow Container with playful cartoon float/wiggle animation */
+    /* 3D Arrow Container with playful cartoon floating/wiggling animation */
     .compass-wrapper {
       position: relative;
       width: 295px;
@@ -62,7 +65,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 8px 0;
+      margin: 12px 0;
       transform-style: preserve-3d;
       transition: transform 0.1s ease-out;
       animation: floatAndWiggle 4s ease-in-out infinite;
@@ -77,7 +80,7 @@
       }
     }
 
-    /* Big Extruded 3D Arrow Container */
+    /* 3D Arrow Container */
     .arrow-container {
       position: absolute;
       inset: 0;
@@ -86,79 +89,78 @@
       justify-content: center;
       transition: transform 0.1s ease-out;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 20px 25px rgba(2, 132, 199, 0.35));
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
     }
 
     .arrow-svg {
-      width: 250px;
-      height: 250px;
-      transform: translateZ(35px);
+      width: 240px;
+      height: 240px;
+      transform: translateZ(35px); /* Pops out in 3D when phone tilts */
     }
 
     /* Status & Distance Readout Card */
     .readout-box {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 2px solid var(--border-color);
-      border-radius: 20px;
-      padding: 16px 20px;
+      background: rgba(26, 21, 40, 0.85);
+      border: 1px solid var(--gold-dim);
+      border-radius: 14px;
+      padding: 14px 22px;
       width: 100%;
       max-width: 340px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
     }
 
     .distance-label {
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      font-weight: 600;
+      color: #b5a584;
     }
 
     .distance-value {
-      font-size: 2.25rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin: 2px 0;
+      font-family: 'Cinzel', serif;
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin: 4px 0;
     }
 
     .status-text {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      min-height: 1.3em;
+      font-size: 0.98rem;
+      color: #cbbba0;
+      min-height: 1.4em;
     }
 
     .arrived-banner {
       display: none;
       margin-top: 8px;
       padding: 8px 12px;
-      border-radius: 12px;
-      background: rgba(56, 189, 248, 0.18);
-      border: 2px solid var(--accent-blue);
-      color: var(--accent-blue);
-      font-weight: 700;
-      font-size: 0.95rem;
+      border-radius: 8px;
+      background: rgba(229, 184, 75, 0.18);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
     }
 
     /* Activation Button */
     button#startBtn {
-      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
-      color: #0f172a;
-      border: 3px solid #0f172a;
+      background: linear-gradient(135deg, #d4a02c 0%, #f5d06b 50%, #c6901e 100%);
+      color: #161024;
+      border: none;
       border-radius: 999px;
-      padding: 14px 32px;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
+      padding: 14px 28px;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
       cursor: pointer;
-      box-shadow: 0 6px 0 #0f172a, 0 10px 25px rgba(56, 189, 248, 0.4);
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      box-shadow: 0 0 22px var(--accent-glow);
+      transition: transform 0.15s ease, opacity 0.2s ease;
     }
 
     button#startBtn:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0 #0f172a;
+      transform: scale(0.96);
     }
 
     button#startBtn.hidden {
@@ -167,70 +169,71 @@
 
     .hint {
       font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 12px;
+      color: #8f826c;
+      margin-top: 8px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Mystery Destination</h1>
-    <p>Follow the 3D arrow to find your surprise!</p>
+    <h1>Happy Birthday, My Love</h1>
+    <p>"I solemnly swear that I am up to no good." Follow the wand to your surprise.</p>
   </header>
 
   <div class="compass-wrapper" id="compassWrapper">
-    <!-- Smooth Extruded 3D Arrow styled like reference image -->
+    <!-- Clean 3D Golden Arrow pointing UP -->
     <div class="arrow-container" id="arrowContainer">
       <svg class="arrow-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- 3D Extrusion Side/Depth Gradient (Darker Shade) -->
-          <linearGradient id="sideDepth" x1="50" y1="35" x2="110" y2="110" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#0284c7"/>
-            <stop offset="100%" stop-color="#0369a1"/>
+          <!-- 3D Extrusion Side/Depth Gradient (Darker Antique Gold) -->
+          <linearGradient id="goldSide" x1="70" y1="20" x2="110" y2="120" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8c6d23"/>
+            <stop offset="100%" stop-color="#543e11"/>
           </linearGradient>
-          <!-- Main Top Face Gradient (Bright Smooth Blue) -->
-          <linearGradient id="topFace" x1="70" y1="20" x2="70" y2="120" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7dd3fc"/>
-            <stop offset="100%" stop-color="#38bdf8"/>
+          <!-- Main Top Face Gradient (Bright Magical Gold) -->
+          <linearGradient id="goldTop" x1="70" y1="15" x2="70" y2="125" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#fff5c0"/>
+            <stop offset="40%" stop-color="#e5b84b"/>
+            <stop offset="100%" stop-color="#a67c1e"/>
           </linearGradient>
         </defs>
 
-        <!-- Extruded 3D Depth Shadow/Sides (Offset down-right) -->
-        <g fill="url(#sideDepth)">
+        <!-- 3D Extruded Sides (Shifted slightly down-right for depth) -->
+        <g fill="url(#goldSide)">
           <!-- Shaft depth -->
-          <rect x="32" y="62" width="50" height="42" rx="10" />
-          <!-- Head depth -->
-          <path d="M 68 28 L 118 78 L 82 78 Z" />
+          <rect x="52" y="52" width="40" height="64" rx="8" />
+          <!-- Arrowhead depth -->
+          <path d="M 70 18 L 122 72 L 88 72 Z" />
         </g>
 
         <!-- Main Smooth Top Face -->
-        <g fill="url(#topFace)">
+        <g fill="url(#goldTop)">
           <!-- Shaft Top -->
-          <rect x="28" y="56" width="50" height="42" rx="10" />
-          <!-- Head Top -->
-          <path d="M 64 22 L 114 72 L 78 72 Z" />
-          <!-- Center connecting square to make it one solid shape -->
-          <rect x="64" y="56" width="18" height="20" />
+          <rect x="48" y="46" width="40" height="64" rx="8" />
+          <!-- Arrowhead Top -->
+          <path d="M 70 12 L 120 66 L 82 66 Z" />
+          <!-- Center bridge -->
+          <rect x="48" y="46" width="40" height="26" />
         </g>
 
-        <!-- Soft Highlight Reflection for Glossy 3D Look -->
-        <path d="M 34 64 L 68 64" stroke="#bae6fd" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
-        <path d="M 72 36 L 98 62" stroke="#bae6fd" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+        <!-- Glossy Highlights for 3D Shiny Effect -->
+        <path d="M 54 54 L 54 96" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        <path d="M 70 26 L 102 58" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
       </svg>
     </div>
   </div>
 
   <div class="readout-box">
-    <div class="distance-label">Distance Remaining</div>
+    <div class="distance-label">Distance to Destination</div>
     <div class="distance-value" id="distanceDisplay">—</div>
-    <div class="status-text" id="statusText">Tap below to start tracking</div>
-    <div class="arrived-banner" id="arrivedBanner">🎉 You Made It! 🎉</div>
+    <div class="status-text" id="statusText">Tap below to awaken the compass</div>
+    <div class="arrived-banner" id="arrivedBanner">✨ You have arrived at the destination! ✨</div>
   </div>
 
   <div>
-    <button id="startBtn">Let's Go!</button>
-    <div class="hint" id="hintText">Tilt your phone to rotate the 3D arrow</div>
+    <button id="startBtn">Cast Point Me</button>
+    <div class="hint" id="hintText">Tilt your phone to test the 3D perspective response</div>
   </div>
 
   <script>
@@ -306,16 +309,15 @@
 
       distanceDisplay.textContent = formatDistance(distMeters);
 
-      // Point directly toward destination relative to phone's compass heading
       const arrowRotation = (targetBearing - phoneHeading + 360) % 360;
       arrowContainer.style.transform = `rotate(${arrowRotation}deg)`;
 
       if (distMeters <= 35) {
         arrivedBanner.style.display = 'block';
-        statusText.textContent = 'Look around — your surprise is right here!';
+        statusText.textContent = 'Look up — the magic awaits!';
       } else {
         arrivedBanner.style.display = 'none';
-        statusText.textContent = `Heading ${Math.round(targetBearing)}° • Keep following the arrow`;
+        statusText.textContent = `Heading ${Math.round(targetBearing)}° • Keep following the golden arrow`;
       }
     }
 
@@ -347,7 +349,7 @@
         return;
       }
 
-      statusText.textContent = 'Finding your location...';
+      statusText.textContent = 'Acquiring GPS signal...';
 
       navigator.geolocation.watchPosition(
         (pos) => {
@@ -380,17 +382,17 @@
         try {
           const response = await DeviceOrientationEvent.requestPermission();
           if (response !== 'granted') {
-            statusText.textContent = 'Motion sensor permission denied.';
+            statusText.textContent = 'Compass permission denied.';
             return;
           }
         } catch (err) {
-          statusText.textContent = 'Could not request sensor permission.';
+          statusText.textContent = 'Could not request permission.';
           return;
         }
       }
 
       startBtn.classList.add('hidden');
-      hintText.textContent = 'Tilt your phone to interact with the 3D arrow';
+      hintText.textContent = 'Tilt your phone to see the 3D golden arrow in action';
       startTracking();
     });
   </script>
