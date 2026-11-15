@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>Mischief Managed — Birthday Quest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +37,7 @@
       padding: 24px 18px 32px;
       text-align: center;
       overflow: hidden;
-      perspective: 900px;
+      perspective: 850px;
       user-select: none;
     }
 
@@ -57,46 +58,72 @@
       margin: 0 auto;
     }
 
-    /* 3D Compass Container with playful floating/wiggling animation */
-    .compass-wrapper {
+    /* 3D Tilt Stage */
+    .stage-wrapper {
       position: relative;
-      width: 295px;
-      height: 295px;
+      width: 280px;
+      height: 280px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 12px 0;
       transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
-      animation: floatAndWiggle 4s ease-in-out infinite;
+      transition: transform 0.08s ease-out;
     }
 
-    @keyframes floatAndWiggle {
-      0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-8px) rotate(1.5deg);
-      }
-    }
-
-    /* Chunky Cartoon Arrow Container with Deep Shadow */
-    .arrow-container {
+    /* Compass Rotation Wrapper */
+    .arrow-rotator {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.1s ease-out;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.75));
+      transition: transform 0.12s ease-out;
     }
 
-    .arrow-svg {
-      width: 230px;
-      height: 230px;
-      transform: translateZ(35px); /* Pops out in 3D when phone tilts */
+    /* Playful Cartoon Floating & Wiggle Animation */
+    .arrow-wiggler {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      transform-style: preserve-3d;
+      animation: cartoonWiggle 3.2s ease-in-out infinite;
     }
+
+    @keyframes cartoonWiggle {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+      }
+      25% {
+        transform: translateY(-7px) rotate(-3deg) scale(1.02);
+      }
+      50% {
+        transform: translateY(-10px) rotate(0deg) scale(1.03);
+      }
+      75% {
+        transform: translateY(-7px) rotate(3deg) scale(1.02);
+      }
+    }
+
+    /* Stacked 3D SVG Layers for True Extruded Thickness */
+    .arrow-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .layer-shadow {
+      transform: translateZ(0px);
+      filter: blur(12px);
+      opacity: 0.75;
+    }
+
+    .layer-depth-1 { transform: translateZ(6px); }
+    .layer-depth-2 { transform: translateZ(12px); }
+    .layer-depth-3 { transform: translateZ(18px); }
+    .layer-top     { transform: translateZ(24px); }
 
     /* Status & Distance Readout Card */
     .readout-box {
@@ -143,7 +170,6 @@
       font-size: 0.9rem;
     }
 
-    /* Activation Button */
     button#startBtn {
       background: linear-gradient(135deg, #d4a02c 0%, #f5d06b 50%, #c6901e 100%);
       color: #161024;
@@ -156,7 +182,7 @@
       letter-spacing: 0.06em;
       cursor: pointer;
       box-shadow: 0 0 22px var(--accent-glow);
-      transition: transform 0.15s ease, opacity 0.2s ease;
+      transition: transform 0.15s ease;
     }
 
     button#startBtn:active {
@@ -178,61 +204,66 @@
 
   <header>
     <h1>Happy Birthday, My Love</h1>
-    <p>"I solemnly swear that I am up to no good." Follow the wand to your surprise.</p>
+    <p>"I solemnly swear that I am up to no good." Follow the arrow to your surprise.</p>
   </header>
 
-  <div class="compass-wrapper" id="compassWrapper">
-    <!-- Solid, Bulky Cartoon Arrow pointing UP -->
-    <div class="arrow-container" id="arrowContainer">
-      <svg class="arrow-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="goldGradient" x1="60" y1="10" x2="60" y2="110" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FFF5C0"/>
-            <stop offset="45%" stop-color="#E5B84B"/>
-            <stop offset="100%" stop-color="#A67C1E"/>
-          </linearGradient>
-        </defs>
+  <div class="stage-wrapper" id="stageWrapper">
+    <div class="arrow-rotator" id="arrowRotator">
+      <div class="arrow-wiggler">
 
-        <!-- Chunky, Bulky Cartoon Arrow Body with Dark Outline -->
-        <path
-          d="M 60 10
-             L 98 50
-             Q 102 55 94 55
-             L 74 55
-             L 74 104
-             Q 74 110 68 110
-             L 52 110
-             Q 46 110 46 104
-             L 46 55
-             L 26 55
-             Q 18 55 22 50
-             Z"
-          fill="url(#goldGradient)"
-          stroke="#382607"
-          stroke-width="5"
-          stroke-linejoin="round"
-        />
+        <!-- Drop Shadow Layer -->
+        <svg class="arrow-layer layer-shadow" viewBox="0 0 200 200">
+          <path d="M100 18 L172 92 Q178 98 168 98 L134 98 L134 174 Q134 184 124 184 L76 184 Q66 184 66 174 L66 98 L32 98 Q22 98 28 92 Z" fill="#000000" />
+        </svg>
 
-        <!-- Glossy Highlight Streak -->
-        <path
-          d="M 55 22 L 35 46"
-          stroke="#FFFFFF"
-          stroke-width="4"
-          stroke-linecap="round"
-          opacity="0.75"
-        />
-        <line
-          x1="53" y1="62" x2="53" y2="98"
-          stroke="#FFFFFF"
-          stroke-width="4"
-          stroke-linecap="round"
-          opacity="0.6"
-        />
+        <!-- 3D Extruded Thickness Layers (Dark Bronze/Gold) -->
+        <svg class="arrow-layer layer-depth-1" viewBox="0 0 200 200">
+          <path d="M100 18 L172 92 Q178 98 168 98 L134 98 L134 174 Q134 184 124 184 L76 184 Q66 184 66 174 L66 98 L32 98 Q22 98 28 92 Z" fill="#5c4310" stroke="#3b2906" stroke-width="6" stroke-linejoin="round" />
+        </svg>
 
-        <!-- Center Magical Gem / Rivet -->
-        <circle cx="60" cy="58" r="8" fill="#1A1528" stroke="#E5B84B" stroke-width="3"/>
-        <circle cx="58" cy="56" r="2.5" fill="#FFF5C0"/>
-      </svg>
+        <svg class="arrow-layer layer-depth-2" viewBox="0 0 200 200">
+          <path d="M100 18 L172 92 Q178 98 168 98 L134 98 L134 174 Q134 184 124 184 L76 184 Q66 184 66 174 L66 98 L32 98 Q22 98 28 92 Z" fill="#7d5c18" stroke="#4a3409" stroke-width="6" stroke-linejoin="round" />
+        </svg>
+
+        <svg class="arrow-layer layer-depth-3" viewBox="0 0 200 200">
+          <path d="M100 18 L172 92 Q178 98 168 98 L134 98 L134 174 Q134 184 124 184 L76 184 Q66 184 66 174 L66 98 L32 98 Q22 98 28 92 Z" fill="#a87e24" stroke="#5c4310" stroke-width="6" stroke-linejoin="round" />
+        </svg>
+
+        <!-- Top Glossy Golden Face -->
+        <svg class="arrow-layer layer-top" viewBox="0 0 200 200">
+          <defs>
+            <linearGradient id="goldFace" x1="100" y1="15" x2="100" y2="185" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#fff6c7"/>
+              <stop offset="45%" stop-color="#e5b84b"/>
+              <stop offset="100%" stop-color="#b88924"/>
+            </linearGradient>
+          </defs>
+          <!-- Main Chunky Arrow Silhouette -->
+          <path
+            d="M100 18 L172 92 Q178 98 168 98 L134 98 L134 174 Q134 184 124 184 L76 184 Q66 184 66 174 L66 98 L32 98 Q22 98 28 92 Z"
+            fill="url(#goldFace)"
+            stroke="#5c4310"
+            stroke-width="5"
+            stroke-linejoin="round"
+          />
+          <!-- Cartoon Specular Shine -->
+          <path
+            d="M95 34 L50 82"
+            stroke="#ffffff"
+            stroke-width="7"
+            stroke-linecap="round"
+            opacity="0.75"
+          />
+          <line
+            x1="80" y1="108" x2="80" y2="164"
+            stroke="#ffffff"
+            stroke-width="7"
+            stroke-linecap="round"
+            opacity="0.65"
+          />
+        </svg>
+
+      </div>
     </div>
   </div>
 
@@ -245,7 +276,7 @@
 
   <div>
     <button id="startBtn">Cast Point Me</button>
-    <div class="hint" id="hintText">Tilt your phone to test the 3D perspective response</div>
+    <div class="hint" id="hintText">Tilt your phone to see the 3D golden arrow • v5</div>
   </div>
 
   <script>
@@ -264,8 +295,8 @@
     const startBtn = document.getElementById('startBtn');
     const statusText = document.getElementById('statusText');
     const distanceDisplay = document.getElementById('distanceDisplay');
-    const arrowContainer = document.getElementById('arrowContainer');
-    const compassWrapper = document.getElementById('compassWrapper');
+    const arrowRotator = document.getElementById('arrowRotator');
+    const stageWrapper = document.getElementById('stageWrapper');
     const arrivedBanner = document.getElementById('arrivedBanner');
     const hintText = document.getElementById('hintText');
 
@@ -308,9 +339,10 @@
     }
 
     function updateUI() {
-      const clampedX = Math.max(-35, Math.min(35, tiltX));
-      const clampedY = Math.max(-35, Math.min(35, tiltY));
-      compassWrapper.style.transform = `rotateX(${-clampedX}deg) rotateY(${clampedY}deg)`;
+      // 3D perspective tilt based on phone orientation
+      const clampedX = Math.max(-40, Math.min(40, tiltX));
+      const clampedY = Math.max(-40, Math.min(40, tiltY));
+      stageWrapper.style.transform = `rotateX(${-clampedX}deg) rotateY(${clampedY}deg)`;
 
       if (currentLat === null || currentLon === null) {
         return;
@@ -322,7 +354,7 @@
       distanceDisplay.textContent = formatDistance(distMeters);
 
       const arrowRotation = (targetBearing - phoneHeading + 360) % 360;
-      arrowContainer.style.transform = `rotate(${arrowRotation}deg)`;
+      arrowRotator.style.transform = `rotate(${arrowRotation}deg)`;
 
       if (distMeters <= 35) {
         arrivedBanner.style.display = 'block';
@@ -404,7 +436,7 @@
       }
 
       startBtn.classList.add('hidden');
-      hintText.textContent = 'Tilt your phone to test the 3D perspective response';
+      hintText.textContent = 'Tilt your phone to see the 3D golden arrow • v5';
       startTracking();
     });
   </script>
