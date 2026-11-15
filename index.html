@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Quest Pointer</title>
+  <title>Mystery Destination</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
       --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       --card-bg: rgba(30, 41, 59, 0.85);
       --border-color: rgba(148, 163, 184, 0.25);
-      --accent-teal: #2dd4bf;
+      --accent-blue: #38bdf8;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
     }
@@ -54,7 +54,7 @@
       margin: 0 auto;
     }
 
-    /* 3D Compass Container */
+    /* 3D Arrow Container with playful cartoon float/wiggle animation */
     .compass-wrapper {
       position: relative;
       width: 295px;
@@ -65,48 +65,19 @@
       margin: 8px 0;
       transform-style: preserve-3d;
       transition: transform 0.1s ease-out;
+      animation: floatAndWiggle 4s ease-in-out infinite;
     }
 
-    .compass-ring {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 4px solid #334155;
-      background: radial-gradient(circle, #1e293b 0%, #0f172a 88%);
-      box-shadow:
-        0 24px 45px rgba(0, 0, 0, 0.55),
-        inset 0 0 22px rgba(0, 0, 0, 0.7);
-      transform-style: preserve-3d;
+    @keyframes floatAndWiggle {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(1.5deg);
+      }
     }
 
-    .compass-ring::before {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border-radius: 50%;
-      border: 2px dashed rgba(148, 163, 184, 0.25);
-    }
-
-    /* Dial markings that rotate with phone heading */
-    .compass-dial {
-      position: absolute;
-      inset: 0;
-      transition: transform 0.1s ease-out;
-      transform-style: preserve-3d;
-    }
-
-    .cardinal {
-      position: absolute;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-    }
-    .cardinal.n { top: 18px; left: 50%; transform: translateX(-50%); color: var(--accent-teal); }
-    .cardinal.s { bottom: 18px; left: 50%; transform: translateX(-50%); }
-    .cardinal.e { right: 20px; top: 50%; transform: translateY(-50%); }
-    .cardinal.w { left: 20px; top: 50%; transform: translateY(-50%); }
-
-    /* Big Cartoon Arrow Container */
+    /* Big Extruded 3D Arrow Container */
     .arrow-container {
       position: absolute;
       inset: 0;
@@ -115,13 +86,13 @@
       justify-content: center;
       transition: transform 0.1s ease-out;
       transform-style: preserve-3d;
-      filter: drop-shadow(0 12px 14px rgba(0, 0, 0, 0.65));
+      filter: drop-shadow(0 20px 25px rgba(2, 132, 199, 0.35));
     }
 
     .arrow-svg {
-      width: 235px;
-      height: 235px;
-      transform: translateZ(28px); /* Pops out in 3D when phone tilts */
+      width: 250px;
+      height: 250px;
+      transform: translateZ(35px);
     }
 
     /* Status & Distance Readout Card */
@@ -163,16 +134,16 @@
       margin-top: 8px;
       padding: 8px 12px;
       border-radius: 12px;
-      background: rgba(45, 212, 191, 0.18);
-      border: 2px solid var(--accent-teal);
-      color: var(--accent-teal);
+      background: rgba(56, 189, 248, 0.18);
+      border: 2px solid var(--accent-blue);
+      color: var(--accent-blue);
       font-weight: 700;
       font-size: 0.95rem;
     }
 
     /* Activation Button */
     button#startBtn {
-      background: linear-gradient(180deg, #ff7e5f 0%, #feb47b 100%);
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
       color: #0f172a;
       border: 3px solid #0f172a;
       border-radius: 999px;
@@ -181,7 +152,7 @@
       font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 0 #0f172a, 0 10px 25px rgba(255, 126, 95, 0.4);
+      box-shadow: 0 6px 0 #0f172a, 0 10px 25px rgba(56, 189, 248, 0.4);
       transition: transform 0.1s ease, box-shadow 0.1s ease;
     }
 
@@ -205,71 +176,47 @@
 
   <header>
     <h1>Mystery Destination</h1>
-    <p>Follow the giant arrow to find your surprise!</p>
+    <p>Follow the 3D arrow to find your surprise!</p>
   </header>
 
   <div class="compass-wrapper" id="compassWrapper">
-    <div class="compass-ring"></div>
-
-    <!-- Cardinal markers rotating relative to North -->
-    <div class="compass-dial" id="compassDial">
-      <span class="cardinal n">N</span>
-      <span class="cardinal e">E</span>
-      <span class="cardinal s">S</span>
-      <span class="cardinal w">W</span>
-    </div>
-
-    <!-- Big Cartoon-style Arrow -->
+    <!-- Smooth Extruded 3D Arrow styled like reference image -->
     <div class="arrow-container" id="arrowContainer">
-      <svg class="arrow-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="arrow-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="cartoonBody" x1="60" y1="10" x2="60" y2="110" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FF9A76"/>
-            <stop offset="55%" stop-color="#FF6347"/>
-            <stop offset="100%" stop-color="#D9381E"/>
+          <!-- 3D Extrusion Side/Depth Gradient (Darker Shade) -->
+          <linearGradient id="sideDepth" x1="50" y1="35" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0284c7"/>
+            <stop offset="100%" stop-color="#0369a1"/>
+          </linearGradient>
+          <!-- Main Top Face Gradient (Bright Smooth Blue) -->
+          <linearGradient id="topFace" x1="70" y1="20" x2="70" y2="120" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7dd3fc"/>
+            <stop offset="100%" stop-color="#38bdf8"/>
           </linearGradient>
         </defs>
 
-        <!-- Chunky Cartoon Arrow Body with thick dark outline and rounded corners -->
-        <path
-          d="M 60 10
-             L 96 52
-             Q 99 56 93 56
-             L 74 56
-             L 74 102
-             Q 74 108 68 108
-             L 52 108
-             Q 46 108 46 102
-             L 46 56
-             L 27 56
-             Q 21 56 24 52
-             Z"
-          fill="url(#cartoonBody)"
-          stroke="#0F172A"
-          stroke-width="6"
-          stroke-linejoin="round"
-        />
+        <!-- Extruded 3D Depth Shadow/Sides (Offset down-right) -->
+        <g fill="url(#sideDepth)">
+          <!-- Shaft depth -->
+          <rect x="32" y="62" width="50" height="42" rx="10" />
+          <!-- Head depth -->
+          <path d="M 68 28 L 118 78 L 82 78 Z" />
+        </g>
 
-        <!-- Cartoon Glossy Highlight on the left side -->
-        <path
-          d="M 58 20 L 34 49 L 47 49"
-          stroke="#FFD6C9"
-          stroke-width="4"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          opacity="0.85"
-        />
-        <line
-          x1="53" y1="62" x2="53" y2="98"
-          stroke="#FFD6C9"
-          stroke-width="4"
-          stroke-linecap="round"
-          opacity="0.7"
-        />
+        <!-- Main Smooth Top Face -->
+        <g fill="url(#topFace)">
+          <!-- Shaft Top -->
+          <rect x="28" y="56" width="50" height="42" rx="10" />
+          <!-- Head Top -->
+          <path d="M 64 22 L 114 72 L 78 72 Z" />
+          <!-- Center connecting square to make it one solid shape -->
+          <rect x="64" y="56" width="18" height="20" />
+        </g>
 
-        <!-- Center Rivet / Pivot Cap -->
-        <circle cx="60" cy="60" r="8" fill="#F8FAFC" stroke="#0F172A" stroke-width="4"/>
-        <circle cx="58" cy="58" r="2.5" fill="#94A3B8"/>
+        <!-- Soft Highlight Reflection for Glossy 3D Look -->
+        <path d="M 34 64 L 68 64" stroke="#bae6fd" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+        <path d="M 72 36 L 98 62" stroke="#bae6fd" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
       </svg>
     </div>
   </div>
@@ -283,7 +230,7 @@
 
   <div>
     <button id="startBtn">Let's Go!</button>
-    <div class="hint" id="hintText">Tilt your phone to see the 3D arrow pop</div>
+    <div class="hint" id="hintText">Tilt your phone to rotate the 3D arrow</div>
   </div>
 
   <script>
@@ -296,7 +243,6 @@
     let phoneHeading = 0;
     let targetBearing = null;
 
-    // 3D Tilt angles from phone accelerometer/gyroscope
     let tiltX = 0;
     let tiltY = 0;
 
@@ -304,7 +250,6 @@
     const statusText = document.getElementById('statusText');
     const distanceDisplay = document.getElementById('distanceDisplay');
     const arrowContainer = document.getElementById('arrowContainer');
-    const compassDial = document.getElementById('compassDial');
     const compassWrapper = document.getElementById('compassWrapper');
     const arrivedBanner = document.getElementById('arrivedBanner');
     const hintText = document.getElementById('hintText');
@@ -348,10 +293,6 @@
     }
 
     function updateUI() {
-      // Rotate N/E/S/W ring opposite to phone heading
-      compassDial.style.transform = `rotate(${-phoneHeading}deg)`;
-
-      // Apply 3D tilt based on phone orientation
       const clampedX = Math.max(-35, Math.min(35, tiltX));
       const clampedY = Math.max(-35, Math.min(35, tiltY));
       compassWrapper.style.transform = `rotateX(${-clampedX}deg) rotateY(${clampedY}deg)`;
@@ -365,6 +306,7 @@
 
       distanceDisplay.textContent = formatDistance(distMeters);
 
+      // Point directly toward destination relative to phone's compass heading
       const arrowRotation = (targetBearing - phoneHeading + 360) % 360;
       arrowContainer.style.transform = `rotate(${arrowRotation}deg)`;
 
@@ -448,7 +390,7 @@
       }
 
       startBtn.classList.add('hidden');
-      hintText.textContent = 'Tilt the phone to see the 3D effect in action';
+      hintText.textContent = 'Tilt your phone to interact with the 3D arrow';
       startTracking();
     });
   </script>
